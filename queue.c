@@ -66,6 +66,7 @@ bool q_insert_head(queue_t *q, char *s)
     strncpy(newh->value, s, str_len + 1);
     newh->next = q->head;
     q->head = newh;
+    q->size += 1;
     return true;
 }
 
@@ -102,6 +103,7 @@ bool q_insert_tail(queue_t *q, char *s)
     strncpy(newh->value, s, str_len + 1);
     q->tail->next = newh;
     q->tail = newh;
+    q->size += 1;
     return true;
 }
 
