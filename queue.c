@@ -16,6 +16,7 @@ queue_t *q_new()
         return NULL;
     }
     q->head = NULL;
+    q->size = 0;
     return q;
 }
 
@@ -31,6 +32,7 @@ void q_free(queue_t *q)
         if (ele == NULL) {
             break;
         }
+        free(ele->value);
         free(ele);
         ele = ele->next;
     }
@@ -127,6 +129,7 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
     }
     list_ele_t *temp = q->head;
     q->head = q->head->next;
+    q->size -= 1;
     strncpy(sp, temp->value, bufsize);
     free(temp);
     return true;
