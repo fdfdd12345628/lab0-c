@@ -146,6 +146,8 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
  */
 int q_size(queue_t *q)
 {
+    if (q == NULL)
+        return 0;
     return q->size;
 }
 
@@ -194,6 +196,8 @@ void q_sort(queue_t *q)
 {
     /* TODO: You need to write the code for this function */
     /* TODO: Remove the above comment when you are about to implement. */
+    if (q == NULL)
+        return;
     if (q->size == 0)
         return;
     q->head = mergeSortList(q->head);
