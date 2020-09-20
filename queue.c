@@ -33,9 +33,10 @@ void q_free(queue_t *q)
         if (ele == NULL) {
             break;
         }
+        list_ele_t *temp = ele->next;
         free(ele->value);
         free(ele);
-        ele = ele->next;
+        ele = temp;
     }
     free(q);
 }
