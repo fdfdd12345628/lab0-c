@@ -104,8 +104,13 @@ bool q_insert_tail(queue_t *q, char *s)
     newh->value = new_str;
     newh->next = NULL;
     strncpy(newh->value, s, str_len + 1);
-    q->tail->next = newh;
-    q->tail = newh;
+    if (q->size == 0) {
+        q->head = newh;
+        q->tail = newh;
+    } else {
+        q->tail->next = newh;
+        q->tail = newh;
+    }
     q->size += 1;
     return true;
 }
