@@ -101,6 +101,7 @@ bool q_insert_tail(queue_t *q, char *s)
         return false;
     }
     newh->value = new_str;
+    newh->next = NULL;
     strncpy(newh->value, s, str_len + 1);
     q->tail->next = newh;
     q->tail = newh;
@@ -156,8 +157,28 @@ int q_size(queue_t *q)
  */
 void q_reverse(queue_t *q)
 {
-    /* TODO: You need to write the code for this function */
-    /* TODO: Remove the above comment when you are about to implement. */
+    if (q == NULL) {
+        return;
+    }
+    if (q->size == 0) {
+        return;
+    }
+    list_ele_t *head = q->head;
+    list_ele_t *prev = head;
+    list_ele_t *current = head->next;
+    while (true) {
+        if (current == NULL) {
+            break;
+        }
+        list_ele_t *temp = current->next;
+        current->next = prev;
+        prev = current;
+        current = temp;
+    }
+    q->head = prev;
+    q->tail = head;
+    q->tail->next = NULL;
+    return;
 }
 
 /*
