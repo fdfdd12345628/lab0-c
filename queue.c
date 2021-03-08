@@ -217,19 +217,30 @@ void q_sort(queue_t *q)
 
 list_ele_t *merge(list_ele_t *l1, list_ele_t *l2)
 {
+    list_ele_t result;
+    list_ele_t *position = &result;
     // merge with recursive
-    if (!l2)
-        return l1;
-    if (!l1)
-        return l2;
-
-    if (strcmp(l1->value, l2->value) < 0) {
-        l1->next = merge(l1->next, l2);
-        return l1;
-    } else {
-        l2->next = merge(l1, l2->next);
-        return l2;
+    while (l1 && l2) {
+        if (strcmp(l1->value, l2->value) < 0) {
+            position->next = l1;
+            position = position->next;
+            l1 = l1->next;
+            // l2=l2->next;
+            // l1->next = merge(l1->next, l2);
+            // return l1;
+        } else {
+            position->next = l2;
+            position = position->next;
+            l2 = l2->next;
+        }
     }
+    if (l1) {
+        position->next = l1;
+    } else if (l2) {
+        position->next = l2;
+    }
+
+    return result.next;
 }
 
 list_ele_t *mergeSortList(list_ele_t *head)
